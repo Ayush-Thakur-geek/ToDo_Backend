@@ -1,6 +1,7 @@
 package com.selfprojects.ToDoApp.service;
 
 import com.selfprojects.ToDoApp.entity.ToDo;
+import com.selfprojects.ToDoApp.exception.CustomException;
 import com.selfprojects.ToDoApp.model.ProgressData;
 import com.selfprojects.ToDoApp.model.ToDoRequest;
 import com.selfprojects.ToDoApp.model.ToDoResponse;
@@ -47,7 +48,17 @@ public class ToDoServiceImpl implements ToDoService{
 
     @Override
     public ToDoResponse getHistoryDetails(long historyId) {
-        return null;
+        log.info("Getting history details for id: {}", historyId);
+        ToDo toDo = toDoRepository.findById(historyId)
+                .orElseThrow(() -> new CustomException("History not found for id: " + historyId, "NOT_FOUND", 404));
+
+        ToDoResponse toDoResponse = ToDoResponse.builder()
+                .id(toDo.getId())
+                .date(toDo.getDate())
+                .goalsCompleted(toDo.getGoalsCompleted())
+                .goalsCreated(toDo.getGoalsCreated())
+                .build();
+        return toDoResponse;
     }
 
     @Override

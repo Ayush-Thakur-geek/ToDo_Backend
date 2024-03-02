@@ -16,6 +16,6 @@ public class ToDoResponse {
     private Instant date;
     private long goalsCompleted;
     private long goalsCreated;
-    private long totalGoalsCompleted;
-    private long totalGoalsCreated;
+//    private long totalGoalsCompleted;
+//    private long totalGoalsCreated;
 }
